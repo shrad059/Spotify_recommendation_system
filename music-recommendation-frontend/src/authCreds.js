@@ -7,9 +7,14 @@ const generateRandomString = () => {
     return text;
 }
 
+const isLocalhost = window.location.hostname === 'localhost';
+const redirectUri = isLocalhost
+  ? 'http://localhost:8881/callback/'
+  : 'https://shrad059.github.io/Spotify_recommendation_system/callback/';
+
 const authCreds = {
     client_id: '2e3991f3876640a993a7599c64474248',
-    redirect_uri: 'http://localhost:8881/callback/',
+    redirect_uri: redirectUri,
     auth_endpoint: 'https://accounts.spotify.com/authorize',
     response_type: 'token',
     state: generateRandomString(),
