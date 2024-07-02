@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recommended Tracks</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="bundle.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const recommendations = JSON.parse(localStorage.getItem('recommendations')) || [];
+      const appDiv = document.getElementById('app');
+
+      if (recommendations.length > 0) {
+        const resultsDiv = document.createElement('div');
+        resultsDiv.className = 'results';
+
+        const funcsDiv = document.createElement('div');
+        funcsDiv.className = 'funcs';
+        const backButton = document.createElement('button');
+        backButton.textContent = 'Go back';
+        backButton.onclick = () => {
+          window.history.back();
+        };
+        funcsDiv.appendChild(backButton);
+
+        const tracksDiv = document.createElement('div');
+        tracksDiv.className = 'tracks';
+        const ul = document.createElement('ul');
+
+        recommendations.forEach(trackName => {
+          const li = document.createElement('li');
+          li.className = 'track-info';
+          li.textContent = trackName;
+          ul.appendChild(li);
+        });
+
+        tracksDiv.appendChild(ul);
+        resultsDiv.appendChild(funcsDiv);
+        resultsDiv.appendChild(tracksDiv);
+        resultsDiv.appendChild(funcsDiv.cloneNode(true));
+        appDiv.appendChild(resultsDiv);
+      } else {
+        const noDataDiv = document.createElement('div');
+        noDataDiv.className = 'results';
+        noDataDiv.textContent = 'No recommendations available.';
+        appDiv.appendChild(noDataDiv);
+      }
+    });
+  </script>
+</body>
+</html>
